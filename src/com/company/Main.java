@@ -33,6 +33,14 @@ public class Main {
 //                deletingInventoryStatement.setString(1, type_inventory);
 //                deletingInventoryStatement.executeUpdate();
 
+                //   ------------Showing inventory table---------------------------------------//
+//                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM inventory");
+//                ResultSet resultSet = preparedStatement.executeQuery();
+//                while (resultSet.next()) {
+//                    String type_inventory = resultSet.getString("type_inventory");
+//                    System.out.printf("type_inventory" + "\n");
+//                }
+
                 //----------- Adding storage --------------------------------------//
 //                int id_storage = 36;
 //                String name_storage = "Красный";
