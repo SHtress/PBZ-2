@@ -1,10 +1,11 @@
 package com.company;
 
+import com.mysql.cj.exceptions.ConnectionIsClosedException;
+
 import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         try {
             String url = "jdbc:mysql://localhost/laba2?serverTimezone=Europe/Moscow&useSSL=false";
@@ -12,35 +13,11 @@ public class Main {
             String password = "1234";
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
             try (Connection conn = DriverManager.getConnection(url, username, password)) {
-
-                //----------- Adding inventory ------------------------------------//
-//                String type_inventory = "Спецодежда";
-//                PreparedStatement addingInventoryStatement = conn.prepareStatement("INSERT INTO inventory(type_inventory) VALUES (?)");
-//                addingInventoryStatement.setString(1, type_inventory);
-//                addingInventoryStatement.executeUpdate();
-
-                //----------- Updating inventory ------------------------------------//
-//                String old_type_inventory = "Спецодежда";
-//                String new_type_inventory = "Инструменты";
-//                PreparedStatement updatingInventoryStatement = conn.prepareStatement("UPDATE inventory SET type_inventory = ? WHERE type_inventory = ?");
-//                updatingInventoryStatement.setString(1, new_type_inventory);
-//                updatingInventoryStatement.setString(2, old_type_inventory);
-//                updatingInventoryStatement.executeUpdate();
-
-                //----------- Deleting inventory ------------------------------------//
-//                String type_inventory = "Спецодежда";
-//                PreparedStatement deletingInventoryStatement = conn.prepareStatement("DELETE FROM inventory WHERE type_inventory = ?");
-//                deletingInventoryStatement.setString(1, type_inventory);
-//                deletingInventoryStatement.executeUpdate();
-
-                //   ------------Showing inventory table---------------------------------------//
-//                PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM inventory");
-//                ResultSet resultSet = preparedStatement.executeQuery();
-//                while (resultSet.next()) {
-//                    String type_inventory = resultSet.getString("type_inventory");
-//                    System.out.printf("type_inventory" + "\n");
-//                }
-
+                Controller controller = new Controller(conn);
+                //controller.AddingInventory("Грабли","Инструмент");
+                //controller.UpdatingInventory("Инструмент", "Инструмент", "Лопата", "Инструмент");
+                controller.DeletingInventory("","Спецодежда");
+                controller.ShowingInventory();
                 //----------- Adding storage --------------------------------------//
 //                int id_storage = 36;
 //                String name_storage = "Красный";
