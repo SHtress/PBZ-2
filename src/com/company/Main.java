@@ -12,6 +12,8 @@ public class Main {
             String username = "root";
             String password = "";
             Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
+
+            Scanner scanner = new Scanner(System.in);
             try (Connection conn = DriverManager.getConnection(url, username, password)) {
                 Controller controller = new Controller(conn);
                 //controller.AddingInventory("Грабли","Инструмент");
@@ -19,6 +21,10 @@ public class Main {
                 //controller.DeletingInventory("","Спецодежда");
                 //controller.ShowingInventory();
                 //controller.addingStorage(2,"BASE",653);
+                while(true){
+
+                    String str=scanner.nextLine();
+                }
 
             }
         } catch (Exception ex) {
