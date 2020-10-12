@@ -18,8 +18,7 @@ public class Main {
                 //controller.UpdatingInventory("Инструмент", "Инструмент", "Лопата", "Инструмент");
                 //controller.DeletingInventory("","Спецодежда");
                 //controller.ShowingInventory();
-
-                controller.addingStorage(2,"BASE",653);
+                //controller.addingStorage(2,"BASE",653);
 
             }
         } catch (Exception ex) {

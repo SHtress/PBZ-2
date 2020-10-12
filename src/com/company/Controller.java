@@ -48,10 +48,10 @@ public class Controller {
     }
 
     void showingInventory() {
-        PreparedStatement preparedStatement = null;
+        PreparedStatement showingInventory = null;
         try {
-            preparedStatement = conn.prepareStatement("SELECT * FROM inventory");
-            ResultSet resultSet = preparedStatement.executeQuery();
+            showingInventory = conn.prepareStatement("SELECT * FROM inventory");
+            ResultSet resultSet = showingInventory.executeQuery();
             while (resultSet.next()) {
                 String name_inventory = resultSet.getString("name_inventory");
                 String type_inventory = resultSet.getString("type_inventory");
@@ -93,19 +93,19 @@ public class Controller {
     }
 
    void deletingStorage(int storage_number, String storage_name, int storage_phone) {
-       PreparedStatement updatingStorageStatement = null;
+       PreparedStatement deletingStorageStatement = null;
        try {
-           updatingStorageStatement = conn.prepareStatement("DELETE FROM storage WHERE storage_number = ? AND storage_name = ? AND storage_phone = ?");
-           updatingStorageStatement.setInt(1, storage_number);
-           updatingStorageStatement.setString(2, storage_name);
-           updatingStorageStatement.setInt(3, storage_phone);
-           updatingStorageStatement.executeUpdate();
+           deletingStorageStatement = conn.prepareStatement("DELETE FROM storage WHERE storage_number = ? AND storage_name = ? AND storage_phone = ?");
+           deletingStorageStatement.setInt(1, storage_number);
+           deletingStorageStatement.setString(2, storage_name);
+           deletingStorageStatement.setInt(3, storage_phone);
+           deletingStorageStatement.executeUpdate();
        } catch (SQLException throwables) {
            throwables.printStackTrace();
        }
    }
 
-    void showingStorageTable() {
+    void showingStorage() {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = conn.prepareStatement("SELECT * FROM storage");
@@ -121,4 +121,76 @@ public class Controller {
             throwables.printStackTrace();
         }
     }
+
+    void addingAddition(Date addition_date, String inventory_name, int inventory_amount, String addition_fio, String addition_post) {
+        PreparedStatement addingAdditionStatement = null;
+        try {
+            addingAdditionStatement = conn.prepareStatement("INSERT INTO addition(addition_date, inventory_name, inventory_amount, addition_fio, addition_post) VALUES (?,?,?,?,?)");
+            addingAdditionStatement.setDate(1, addition_date);
+            addingAdditionStatement.setString(2, inventory_name);
+            addingAdditionStatement.setInt(3, inventory_amount);
+            addingAdditionStatement.setString(4, addition_fio);
+            addingAdditionStatement.setString(5, addition_post);
+            addingAdditionStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    void updatingAddition(Date new_addition_date, String new_inventory_name, int new_inventory_amount ,String new_addition_fio, String new_addition_post,
+                          Date old_addition_date, String old_inventory_name, int old_inventory_amount ,String old_addition_fio, String old_addition_post) {
+        PreparedStatement updatingAdditionStatement = null;
+        try {
+            updatingAdditionStatement = conn.prepareStatement("UPDATE storage SET addition_date = ?, inventory_name = ?, inventory_amount = ?, addition_fio = ?, addition_post = ?  WHERE addition_date = ? AND inventory_name = ? AND inventory_amount = ? AND addition_fio = ? AND addition_post = ? ");
+            updatingAdditionStatement.setDate(1, new_addition_date);
+            updatingAdditionStatement.setString(2, new_inventory_name);
+            updatingAdditionStatement.setInt(3, new_inventory_amount);
+            updatingAdditionStatement.setString(4, new_addition_fio);
+            updatingAdditionStatement.setString(5, new_addition_post);
+            updatingAdditionStatement.setDate(6, old_addition_date);
+            updatingAdditionStatement.setString(7, old_inventory_name);
+            updatingAdditionStatement.setInt(8, old_inventory_amount);
+            updatingAdditionStatement.setString(9, old_addition_fio);
+            updatingAdditionStatement.setString(10, old_addition_post);
+            updatingAdditionStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    void deletingAddition(Date addition_date, String inventory_name, int inventory_amount, String addition_fio, String addition_post) {
+        PreparedStatement deletingAdditionStatement = null;
+        try {
+            deletingAdditionStatement = conn.prepareStatement("DELETE FROM storage WHERE addition_date = ? AND inventory_name = ? AND inventory_amount = ? AND addition_fio = ? AND addition_post =?");
+            deletingAdditionStatement.setDate(1, addition_date);
+            deletingAdditionStatement.setString(2, inventory_name);
+            deletingAdditionStatement.setInt(3, inventory_amount);
+            deletingAdditionStatement.setString(4, addition_fio);
+            deletingAdditionStatement.setString(5, addition_post);
+            deletingAdditionStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    void showingAddition() {
+        PreparedStatement showingAdditionStatement = null;
+        try {
+            showingAdditionStatement = conn.prepareStatement("SELECT * FROM addition");
+
+            ResultSet resultSet = showingAdditionStatement.executeQuery();
+            while (resultSet.next()) {
+                Date addition_date = resultSet.getDate("addition_date");
+                String inventory_name = resultSet.getString("inventory_name");
+                int inventory_amount = resultSet.getInt("inventory_amount");
+                String addition_fio = resultSet.getString("addition_fio");
+                String addition_post = resultSet.getString("addition_post");
+                System.out.printf(addition_date + " " + inventory_name + " " + inventory_amount + " " + addition_fio + " " + addition_post + "\n");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
 }
