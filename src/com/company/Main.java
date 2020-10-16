@@ -17,15 +17,7 @@ public class Main {
             Scanner scanner = new Scanner(System.in);
             try (Connection conn = DriverManager.getConnection(url, username, password)) {
                 Controller controller = new Controller(conn);
-                //controller.addingInventory("Грабли","Инструмент");
-                //controller.UpdatingInventory("Инструмент", "Инструмент", "Лопата", "Инструмент");
-                //controller.DeletingInventory("","Спецодежда");
-               // controller.showingInventory();
-                //controller.addingStorage(2,"BASE",653);
-                //controller.addingAddition(2, Date.valueOf("2015-05-12"), "Лопата", 5, "Сидоров", "Завхоз");
-                //controller.addingConsumption(2, Date.valueOf("2015-07-3"), "Лопата", 2 , "Петров", "Завхоз");
-                //controller.showingConsumption();
-                while(true) {
+                while (true) {
                     System.out.println("Выберите действие:");
                     System.out.println("1.Добавление/редактирование/удаление информации о рабочем инвентаре.");
                     System.out.println("2.Добавление/редактирование/удаление информации о складах.");
@@ -42,35 +34,36 @@ public class Main {
                             System.out.println("2.Редактирование информации о рабочем инвентаре.");
                             System.out.println("3.Удаление информаации о рабочем инвентаре.");
                             String inventory_answer = scanner.nextLine();
-                            switch (inventory_answer){
+                            switch (inventory_answer) {
                                 case "1": {
                                     System.out.println("Введите имя инвенторя");
-                                    String inventory_name = scanner.nextLine();
+                                    String inventoryName = scanner.nextLine();
                                     System.out.println("Введите тип инвенторя");
-                                    String inventory_type = scanner.nextLine();
-                                    controller.addingInventory(inventory_name, inventory_type);
+                                    String inventoryType = scanner.nextLine();
+                                    controller.addingInventory(inventoryName, inventoryType);
                                     break;
                                 }
                                 case "2": {
                                     System.out.println("Введите имя инвенторя");
-                                    String inventory_name = scanner.nextLine();
+                                    String inventoryName = scanner.nextLine();
                                     System.out.println("Введите тип инвенторя");
-                                    String inventory_type = scanner.nextLine();
+                                    String inventoryType = scanner.nextLine();
                                     System.out.println("Введите новое имя инвенторя");
-                                    String new_inventory_name = scanner.nextLine();
+                                    String newInventoryName = scanner.nextLine();
                                     System.out.println("Введите новое тип инвенторя");
-                                    String new_inventory_type = scanner.nextLine();
-                                    controller.updatingInventory(inventory_name,inventory_type,new_inventory_name,new_inventory_type);
+                                    String newInventoryType = scanner.nextLine();
+                                    controller.updatingInventory(inventoryName, inventoryType, newInventoryName, newInventoryType);
                                     break;
                                 }
                                 case "3": {
                                     System.out.println("Введите имя инвенторя");
-                                    String inventory_name = scanner.nextLine();
+                                    String inventoryName = scanner.nextLine();
                                     System.out.println("Введите тип инвенторя");
-                                    String inventory_type = scanner.nextLine();
-                                    controller.deletingInventory(inventory_name,inventory_type);
+                                    String inventoryType = scanner.nextLine();
+                                    controller.deletingInventory(inventoryName, inventoryType);
                                     break;
-                                }}
+                                }
+                            }
                             break;
                         }
                         case "2": {
@@ -78,46 +71,47 @@ public class Main {
                             System.out.println("1.Добавление информации о складах.");
                             System.out.println("2.Редактирование информации о складах.");
                             System.out.println("3.Удаление информаации о складах.");
-                            String storage_answer = scanner.nextLine();
-                            switch (storage_answer){
+                            String storageAnswer = scanner.nextLine();
+                            switch (storageAnswer) {
                                 case "1": {
                                     System.out.println("Введите номер склада");
-                                    String storage_number = scanner.nextLine();
+                                    String storageNumber = scanner.nextLine();
                                     System.out.println("Введите имя склада");
-                                    String storage_name = scanner.nextLine();
+                                    String storageName = scanner.nextLine();
                                     System.out.println("Введите телефон склада");
-                                    String storage_phone = scanner.nextLine();
-                                    controller.addingStorage(Integer.parseInt(storage_number), storage_name, Integer.parseInt(storage_phone));
+                                    String storagePhone = scanner.nextLine();
+                                    controller.addingStorage(Integer.parseInt(storageNumber), storageName, Integer.parseInt(storagePhone));
                                     break;
                                 }
                                 case "2": {
                                     System.out.println("Введите номер инвенторя");
-                                    String storage_number = scanner.nextLine();
+                                    String storageNumber = scanner.nextLine();
                                     System.out.println("Введите имя инвенторя");
-                                    String storage_name = scanner.nextLine();
+                                    String storageName = scanner.nextLine();
                                     System.out.println("Введите телефон склада");
-                                    String storage_phone = scanner.nextLine();
+                                    String storagePhone = scanner.nextLine();
                                     System.out.println("Введите новый номер склада");
-                                    String new_storage_name = scanner.nextLine();
+                                    String newStorageName = scanner.nextLine();
                                     System.out.println("Введите новое имя склада");
-                                    String new_storage_type = scanner.nextLine();
+                                    String newStorageType = scanner.nextLine();
                                     System.out.println("Введите новый телефон склада");
-                                    String new_storage_phone = scanner.nextLine();
-                                    controller.updatingStorage(Integer.parseInt(storage_number),storage_name, Integer.parseInt(storage_phone),Integer.parseInt(new_storage_name),new_storage_type,Integer.parseInt(new_storage_phone));
+                                    String newStoragePhone = scanner.nextLine();
+                                    controller.updatingStorage(Integer.parseInt(storageNumber), storageName, Integer.parseInt(storagePhone), Integer.parseInt(newStorageName), newStorageType, Integer.parseInt(newStoragePhone));
                                     break;
                                 }
                                 case "3": {
                                     System.out.println("Введите номер склада");
-                                    String storage_number = scanner.nextLine();
+                                    String storageNumber = scanner.nextLine();
                                     System.out.println("Введите имя склада");
-                                    String storage_name = scanner.nextLine();
+                                    String storageName = scanner.nextLine();
                                     System.out.println("Введите телефон склада");
-                                    String storage_phone = scanner.nextLine();
-                                    controller.deletingStorage(Integer.parseInt(storage_number), storage_name, Integer.parseInt(storage_phone));
+                                    String storagePhone = scanner.nextLine();
+                                    controller.deletingStorage(Integer.parseInt(storageNumber), storageName, Integer.parseInt(storagePhone));
                                     break;
-                                }}
-                                break;
                                 }
+                            }
+                            break;
+                        }
                         case "3": {
                             System.out.println("Выберите действие:");
                             System.out.println("1.Добавление информации о приходе рабочего инвентаря.");
@@ -126,51 +120,129 @@ public class Main {
                             System.out.println("4.Добавление информации о расходе рабочего инвентаря.");
                             System.out.println("5.Редактирование информации о расходе инвентаря.");
                             System.out.println("6.Удаление информаации о расходе рабочего инвентаря.");
-                            String addition_consumption_answer = scanner.nextLine();
-                            switch (addition_consumption_answer){
+                            String additionConsumptionAnswer = scanner.nextLine();
+                            switch (additionConsumptionAnswer) {
                                 case "1": {
                                     System.out.println("Введите номер склада");
-                                    String storage_number = scanner.nextLine();
+                                    String storageNumber = scanner.nextLine();
                                     System.out.println("Введите дату прихода");
-                                    String addition_date = scanner.nextLine();
+                                    String additionDate = scanner.nextLine();
                                     System.out.println("Введите имя инвенторя");
-                                    String inventory_name = scanner.nextLine();
+                                    String inventoryName = scanner.nextLine();
                                     System.out.println("Введите количество инвенторя");
-                                    String inventory_amount = scanner.nextLine();
+                                    String inventoryAmount = scanner.nextLine();
                                     System.out.println("Введите ФИО сотрудника");
-                                    String addition_fio = scanner.nextLine();
+                                    String additionFio = scanner.nextLine();
                                     System.out.println("Введите должность сотрудника");
-                                    String addition_post = scanner.nextLine();
-                                    controller.addingAddition(Integer.parseInt(storage_number), Date.valueOf(addition_date), inventory_name, Integer.parseInt(inventory_amount), addition_fio, addition_post);
+                                    String additionPost = scanner.nextLine();
+                                    controller.addingAddition(Integer.parseInt(storageNumber), Date.valueOf(additionDate), inventoryName, Integer.parseInt(inventoryAmount), additionFio, additionPost);
                                     break;
                                 }
                                 case "2": {
                                     System.out.println("Введите номер склада");
-                                    String storage_number = scanner.nextLine();
+                                    String storageNumber = scanner.nextLine();
                                     System.out.println("Введите дату прихода");
-                                    String addition_date = scanner.nextLine();
+                                    String additionDate = scanner.nextLine();
                                     System.out.println("Введите имя инвенторя");
-                                    String inventory_name = scanner.nextLine();
+                                    String inventoryName = scanner.nextLine();
                                     System.out.println("Введите количество инвенторя");
-                                    String inventory_amount = scanner.nextLine();
+                                    String inventoryAmount = scanner.nextLine();
                                     System.out.println("Введите ФИО сотрудника");
-                                    String addition_fio = scanner.nextLine();
+                                    String additionFio = scanner.nextLine();
                                     System.out.println("Введите должность сотрудника");
-                                    String addition_post = scanner.nextLine();
+                                    String additionPost = scanner.nextLine();
                                     System.out.println("Введите новый номер склада");
-                                    String new_storage_number = scanner.nextLine();
+                                    String newStorageNumber = scanner.nextLine();
                                     System.out.println("Введите новую дату прихода");
-                                    String new_addition_date = scanner.nextLine();
+                                    String newAdditionDate = scanner.nextLine();
                                     System.out.println("Введите новое имя инвенторя");
-                                    String new_inventory_name = scanner.nextLine();
+                                    String newInventoryName = scanner.nextLine();
                                     System.out.println("Введите новое количество инвенторя");
-                                    String new_inventory_amount = scanner.nextLine();
+                                    String newInventoryAmount = scanner.nextLine();
                                     System.out.println("Введите новое ФИО сотрудника");
-                                    String new_addition_fio = scanner.nextLine();
+                                    String newAdditionFio = scanner.nextLine();
                                     System.out.println("Введите новую должность сотрудника");
-                                    String new_addition_post = scanner.nextLine();
-                                    controller.updatingAddition(Integer.parseInt(new_storage_number), Date.valueOf(new_addition_date), new_inventory_name, Integer.parseInt(new_inventory_amount), new_addition_fio, new_addition_post,
-                                                                Integer.parseInt(storage_number), Date.valueOf(addition_date), inventory_name, Integer.parseInt(inventory_amount), addition_fio, addition_post);
+                                    String newAdditionPost = scanner.nextLine();
+                                    controller.updatingAddition(Integer.parseInt(newStorageNumber), Date.valueOf(newAdditionDate), newInventoryName, Integer.parseInt(newInventoryAmount), newAdditionFio, newAdditionPost,
+                                            Integer.parseInt(storageNumber), Date.valueOf(additionDate), inventoryName, Integer.parseInt(inventoryAmount), additionFio, additionPost);
+                                    break;
+                                }
+                                case "3": {
+                                    System.out.println("Введите номер склада");
+                                    String storageNumber = scanner.nextLine();
+                                    System.out.println("Введите дату прихода");
+                                    String additionDate = scanner.nextLine();
+                                    System.out.println("Введите имя инвенторя");
+                                    String inventoryName = scanner.nextLine();
+                                    System.out.println("Введите количество инвенторя");
+                                    String inventoryAmount = scanner.nextLine();
+                                    System.out.println("Введите ФИО сотрудника");
+                                    String additionFio = scanner.nextLine();
+                                    System.out.println("Введите должность сотрудника");
+                                    String additionPost = scanner.nextLine();
+                                    controller.deletingAddition(Integer.parseInt(storageNumber),Date.valueOf(additionDate), inventoryName,Integer.parseInt(inventoryAmount), additionFio, additionPost);
+                                    break;
+                                }
+                                case "4" : {
+                                    System.out.println("Введите номер склада");
+                                    String storageNumber = scanner.nextLine();
+                                    System.out.println("Введите дату расхода");
+                                    String consumptionDate = scanner.nextLine();
+                                    System.out.println("Введите имя инвенторя");
+                                    String inventoryName = scanner.nextLine();
+                                    System.out.println("Введите количество инвенторя");
+                                    String inventoryAmount = scanner.nextLine();
+                                    System.out.println("Введите ФИО сотрудника");
+                                    String consumptionFio = scanner.nextLine();
+                                    System.out.println("Введите должность сотрудника");
+                                    String consumptionPost = scanner.nextLine();
+                                    controller.addingConsumption(Integer.parseInt(storageNumber), Date.valueOf(consumptionDate), inventoryName, Integer.parseInt(inventoryAmount), consumptionFio, consumptionPost);
+                                    break;
+                                }
+                                case "5" : {
+                                    System.out.println("Введите номер склада");
+                                    String storageNumber = scanner.nextLine();
+                                    System.out.println("Введите дату расхода");
+                                    String additionDate = scanner.nextLine();
+                                    System.out.println("Введите имя инвенторя");
+                                    String inventoryName = scanner.nextLine();
+                                    System.out.println("Введите количество инвенторя");
+                                    String inventoryAmount = scanner.nextLine();
+                                    System.out.println("Введите ФИО сотрудника");
+                                    String additionFio = scanner.nextLine();
+                                    System.out.println("Введите должность сотрудника");
+                                    String additionPost = scanner.nextLine();
+                                    System.out.println("Введите новый номер склада");
+                                    String newStorageNumber = scanner.nextLine();
+                                    System.out.println("Введите новую дату расхода");
+                                    String newAdditionDate = scanner.nextLine();
+                                    System.out.println("Введите новое имя инвенторя");
+                                    String newInventoryName = scanner.nextLine();
+                                    System.out.println("Введите новое количество инвенторя");
+                                    String newInventoryAmount = scanner.nextLine();
+                                    System.out.println("Введите новое ФИО сотрудника");
+                                    String newAdditionFio = scanner.nextLine();
+                                    System.out.println("Введите новую должность сотрудника");
+                                    String newAdditionPost = scanner.nextLine();
+                                    controller.updatingConsumption(Integer.parseInt(newStorageNumber), Date.valueOf(newAdditionDate), newInventoryName, Integer.parseInt(newInventoryAmount), newAdditionFio, newAdditionPost,
+                                            Integer.parseInt(storageNumber), Date.valueOf(additionDate), inventoryName, Integer.parseInt(inventoryAmount), additionFio, additionPost);
+                                    break;
+                                }
+                                case "6" : {
+                                    System.out.println("Введите номер склада");
+                                    String storageNumber = scanner.nextLine();
+                                    System.out.println("Введите дату расхода");
+                                    String consumptionDate = scanner.nextLine();
+                                    System.out.println("Введите имя инвенторя");
+                                    String inventoryName = scanner.nextLine();
+                                    System.out.println("Введите количество инвенторя");
+                                    String inventoryAmount = scanner.nextLine();
+                                    System.out.println("Введите ФИО сотрудника");
+                                    String consumptionFio = scanner.nextLine();
+                                    System.out.println("Введите должность сотрудника");
+                                    String consumptionPost = scanner.nextLine();
+                                    controller.deletingConsumption(Integer.parseInt(storageNumber), Date.valueOf(consumptionDate), inventoryName, Integer.parseInt(inventoryAmount), consumptionFio, consumptionPost);
+                                    break;
                                 }
                             }
 
@@ -179,7 +251,7 @@ public class Main {
                 }
 
 
-                }
+            }
         } catch (Exception ex) {
             System.out.println("Connection failed...");
 
