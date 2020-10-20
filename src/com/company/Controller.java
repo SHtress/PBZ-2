@@ -274,19 +274,21 @@ public class Controller {
 
     void findInventoryByType(String inventoryType, int storageNumber, Date currentDate) {
         PreparedStatement findingInventoryStatement = null;
+        System.out.println(currentDate);
         try {
-            findingInventoryStatement = conn.prepareStatement("SELECT name_inventory, addition_amount, consumption_amount FROM  WHERE addition_date <= ? AND consumption_data <= ? AND inventory_type = ? AND storage_number = ?");
-            findingInventoryStatement.setString(1, inventoryType);
-            findingInventoryStatement.setInt(2, storageNumber);
-            findingInventoryStatement.setDate(3, currentDate);
+            findingInventoryStatement = conn.prepareStatement("SELECT addition.inventory_name, addition.inventory_amount, consumption.inventory_amount FROM addition LEFT JOIN consumption ON addition.storage_number = consumption.storage_number WHERE addition_date <= ? AND consumption_date <= ? AND addition.inventory_name IN (SELECT inventory_name FROM inventory WHERE inventory_type = ?) AND addition.storage_number = ?");
+            findingInventoryStatement.setDate(1, currentDate);
+            findingInventoryStatement.setDate(2, currentDate);
+            findingInventoryStatement.setString(3, inventoryType);
+            findingInventoryStatement.setInt(4, storageNumber);
 
             ResultSet resultSet = findingInventoryStatement.executeQuery();
             int inventoryAmount = 0;
 
             while (resultSet.next()) {
-                String inventoryName = resultSet.getString("name_inventory");
-                inventoryAmount += resultSet.getInt("addition_amount");
-                inventoryAmount -= resultSet.getInt("consumption_amount");
+                String inventoryName = resultSet.getString("addition.inventory_name");
+                inventoryAmount += resultSet.getInt("addition.inventory_amount");
+                inventoryAmount -= resultSet.getInt("consumption.inventory_amount");
                 System.out.println(inventoryName + " " + inventoryAmount);
             }
 
@@ -298,17 +300,17 @@ public class Controller {
     void findingAdditionAndConsumption(String inventoryName) {
         PreparedStatement findingAdditionAndConsumptionStatement = null;
         try {
-            findingAdditionAndConsumptionStatement = conn.prepareStatement("SELECT storage_number, inventory_name, addition_date, addition_amount, consumption_date, consumption_amount FROM WHERE inventory_name=?");
+            findingAdditionAndConsumptionStatement = conn.prepareStatement("SELECT addition.storage_number, addition.inventory_name, addition_date, addition.inventory_amount, consumption_date, consumption.inventory_amount FROM addition LEFT JOIN consumption ON addition.storage_number = consumption.storage_number WHERE addition.inventory_name=?");
             findingAdditionAndConsumptionStatement.setString(1, inventoryName);
 
             ResultSet resultSet = findingAdditionAndConsumptionStatement.executeQuery();
             while (resultSet.next()) {
-                int storageNumber = resultSet.getInt("storage_number");
+                int storageNumber = resultSet.getInt("addition.storage_number");
                 Date additionDate = resultSet.getDate("addition_date");
-                int additionAmount = resultSet.getInt("addition_amount");
+                int additionAmount = resultSet.getInt("addition.inventory_amount");
                 Date consumptionDate = resultSet.getDate("consumption_date");
-                int consumptionAmount = resultSet.getInt("consumption_amount");
-                System.out.println(storageNumber + " " + additionDate + " " + additionAmount + " " + consumptionDate + " " + consumptionAmount + "\n");
+                int consumptionAmount = resultSet.getInt("consumption.inventory_amount");
+                System.out.println(storageNumber + " "+ inventoryName + " " + additionDate + " " + additionAmount + " " + consumptionDate + " " + consumptionAmount + "\n");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -321,7 +323,7 @@ public class Controller {
         try {
             findingStorageByDateStatement = conn.prepareStatement(
                     "SELECT DISTINCT * FROM storage WHERE storage_number" +
-                            " IN (SELECT storage_number FROM addition JOIN consumption on" +
+                            " IN (SELECT addition.storage_number FROM addition JOIN consumption on" +
                             " consumption.storage_number = addition.storage_number WHERE addition_date = ?" +
                             " OR consumption_date = ?)");
             findingStorageByDateStatement.setDate(1, storageDate);
